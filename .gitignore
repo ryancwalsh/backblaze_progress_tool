@@ -1,0 +1,26 @@
+# Personal scratch files: screenshots, exports, old scripts
+uncommitted/
+
+# Build output
+src-tauri/target/
+src-tauri/gen/
+Backblaze Progress.exe
+
+# Probe results (redacted, but specific to this PC)
+probe_output.txt
+probe2_output.txt
+
+# UI development sample data
+ui/sample-snapshot.json
+
+# CSV exports and logs
+*.csv
+*.log
+
+# OS and editor files
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Backblaze Progress</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="topbar">
+    <div class="brand">Backblaze Progress <span class="muted" id="ver"></span></div>
+    <div class="controls">
+      <button id="btnRefresh" class="primary">Refresh</button>
+      <label>Auto-refresh
+        <select id="selAuto">
+          <option value="0">off</option>
+          <option value="2">2 min</option>
+          <option value="5" selected>5 min</option>
+          <option value="15">15 min</option>
+        </select>
+      </label>
+      <label title="Check each pending file on disk: does it still exist, is it locked, has it changed, is it a cloud-only placeholder. Takes a few seconds."><input type="checkbox" id="chkFiles" checked /> Check files on disk</label>
+      <button id="btnExport">Export CSV</button>
+    </div>
+    <div id="status" class="muted">Starting…</div>
+  </header>
+
+  <section id="cards"></section>
+
+  <main>
+    <section id="left">
+      <div id="filters">
+        <input id="fSearch" type="search" placeholder="Search path… (space-separated words must all match)" />
+        <select id="fStatus"><option value="">All statuses</option></select>
+        <select id="fDrive"><option value="">All drives</option></select>
+        <select id="fExt"><option value="">All extensions</option></select>
+        <label>Min size <input id="fMin" type="number" min="0" step="1" placeholder="MB" /></label>
+        <label><input type="checkbox" id="fHideUploaded" checked /> Hide already uploaded</label>
+        <span id="fFolderTag" class="tag hidden"></span>
+        <button id="btnClear">Clear filters</button>
+      </div>
+      <div id="viewInfo" class="muted"></div>
+      <div id="tbody" tabindex="0">
+        <div id="thead" class="trow head">
+          <div data-k="status">Status</div>
+          <div data-k="size" class="num">Size</div>
+          <div data-k="name">Name</div>
+          <div data-k="parent">Folder</div>
+          <div data-k="ext">Ext</div>
+          <div data-k="queuedMtime">Modified (queued)</div>
+          <div data-k="reason">Why it's not uploaded</div>
+        </div>
+        <div id="spacer"></div>
+        <div id="rowsLayer"></div>
+      </div>
+    </section>
+
+    <aside id="right">
+      <nav id="tabs">
+        <button data-tab="health" class="active">Health</button>
+        <button data-tab="groups">Groups</button>
+        <button data-tab="history">History</button>
+        <button data-tab="issues">Skipped report</button>
+        <button data-tab="excl">Exclusions</button>
+        <button data-tab="events">Backup passes</button>
+      </nav>
+      <div id="tab-health" class="tab"></div>
+      <div id="tab-groups" class="tab hidden">
+        <div class="seg">
+          <button data-g="status" class="active">By status</button>
+          <button data-g="folder">By folder</button>
+          <button data-g="ext">By extension</button>
+          <button data-g="drive">By drive</button>
+        </div>
+        <p class="muted small">Counts use the current filters. Click a row to filter by it.</p>
+        <div id="groupTable"></div>
+      </div>
+      <div id="tab-history" class="tab hidden"></div>
+      <div id="tab-issues" class="tab hidden"></div>
+      <div id="tab-excl" class="tab hidden"></div>
+      <div id="tab-events" class="tab hidden"></div>
+
+      <div id="detail" class="hidden"></div>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
